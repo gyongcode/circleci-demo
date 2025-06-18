@@ -1,20 +1,13 @@
+version: 2.1
 jobs:
-  deploy:
-    machine:
-      image: ubuntu-2204:current
+  build:
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
-      - run:
-          name: Install Ansible
-          command: |
-            sudo apt update
-            sudo apt install -y ansible
-      - run:
-          name: Run Ansible Playbook on localhost
-          command: |
-            ansible-playbook playbooks/install-nginx.yml -i "localhost," -c local
-
+      - run: echo "CircleCI 동작 확인"
 workflows:
-  deploy-on-push:
+  version: 2
+  build-and-test:
     jobs:
-      - deploy
+      - build
